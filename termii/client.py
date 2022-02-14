@@ -193,7 +193,7 @@ class Client:
         response = termii_switch.get_contacts_from_phonebook(self.api_key, phonebook_id)
         return response
     
-    def add_new_contact(self, phone_number, phonebook_id, options):
+    def add_new_contact(self, phone_number, phonebook_id, country_code, options):
         """
         A method to add a single contact to a phonebook using the termii API
 
@@ -202,11 +202,13 @@ class Client:
             Phone number of the contact without international format.
         phonebook_id: str
             The id of the phonebook
+        country_code: str
+            The country code of the number to be added
         options: dict
-            A dictionary containing certain options such as 'country_code', 'email_address', 'first_name', 'last_name' and 'company' which are all strings. An empty dictionary should be passed if there are no options.
+            A dictionary containing certain options such as 'email_address', 'first_name', 'last_name' and 'company' which are all strings. An empty dictionary should be passed if there are no options.
         """
 
-        response = termii_switch.add_contact(self.api_key, phone_number, phonebook_id, options)
+        response = termii_switch.add_contact(self.api_key, phone_number, phonebook_id, country_code, options)
         return response
     
     def add_contacts(self, contact_file, country_code, extension, phonebook_id):
