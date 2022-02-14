@@ -1,11 +1,13 @@
+from asyncio.base_subprocess import ReadSubprocessPipeProto
 import requests
 import json
 
 SEND_TOKEN_URL = 'https://api.ng.termii.com/api/sms/otp/send'
 SEND_TOKEN_VOICE_URL = "https://api.ng.termii.com/api/sms/otp/send/voice"
 SEND_TOKEN_VOICECALL_URL = "https://api.ng.termii.com/api/sms/otp/send/voice"
+SEND_TOKEN_VERIFYTOKEN_URL = "https://api.ng.termii.com/api/sms/otp/verify"
 
-def send_token(api_key, message_type, phone_number, 
+def send_new_token(api_key, message_type, phone_number, 
         sender_id, channel, pin_attempts, pin_time_to_live,
         pin_length, pin_placeholder, message_text, pin_type,):
     """
@@ -62,7 +64,7 @@ def send_token(api_key, message_type, phone_number,
     return response
 
 
-def voice_token(api_key, phone_number, pin_attempts, 
+def send_voice_token(api_key, phone_number, pin_attempts, 
                 pin_time_to_live, pin_length):
     """
     This function enables you to generate and trigger one-time-passwords
@@ -100,7 +102,7 @@ def voice_token(api_key, phone_number, pin_attempts,
     return response
 
 
-def voice_call(api_key, phone_number, code):
+def make_voice_call(api_key, phone_number, code):
     """
     This function enables you to send messages from your application through
     a voice channel to a client's phone number. Only one-time-passwords are
@@ -127,4 +129,32 @@ def voice_call(api_key, phone_number, code):
     }
     
     response = requests.post(SEND_TOKEN_VOICECALL_URL, headers=headers, json=payload)
+    return response
+
+
+def verify_sent_token(api_key, pin_id, pin):
+    """
+    Ths function checks tokens sent to customers and returns a response
+    confirming the status of the token. A token can either be confirmed
+    as verified or expired based on the timer set for the token.
+
+    Parameters:
+    api_key : string
+        API key for Termii account
+    pin_id : string
+        ID of the pin sent (Example: "c8dcd048-5e7f-4347-8c89-4470c3af0b")
+    pin : string
+        The pin code (Example: "195558")
+    """
+    payload = {
+        'api_key' : api_key,
+        'pin_id' : pin_id,
+        'code' : pin,
+    }
+
+    headers = {
+        'Content-Type' : 'application/json',
+    }
+
+    response = requests.post(SEND_TOKEN_VERIFYTOKEN_URL, headers=headers, json=payload)
     return response
