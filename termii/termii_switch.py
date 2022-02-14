@@ -394,7 +394,7 @@ def delete_one_contact(api_key, contact_id):
     """
 
     response = requests.delete(url=f"{DELETE_CONTACT_URL}/{contact_id}?api_key={api_key}")
-    response = json.loads(response)
+    response = json.loads(response.content)
     return response
 
 def make_campaign(api_key, country_code, sender_id, message, channel, message_type, phonebook_id, campaign_type, **schedule):
@@ -474,4 +474,9 @@ def get_campaign_history(api_key, campaign_id):
     """
 
     response = requests.get(url=f"{CAMPAIGNS_URL}/{campaign_id}?api_key={api_key}")
-    return json.loads(response.content)
+
+    if response.status_code == 504:
+        return "TIME OUT!"
+   
+    response = json.loads(response.content)
+    return response
