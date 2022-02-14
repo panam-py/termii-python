@@ -171,7 +171,19 @@ def send_token_in_app(api_key, pin_type, phone_number, pin_attempts,
     api_key : string
         API key for Termii account
     pin_type : NUMERIC / ALPHANUMERIC
-        
+       Type of pin code that will be generated and sent as part of the OTP
+       message. Can be set to numeric or alphanumeric.
+    phone_number : string
+        Represents the destination phone number. Phone number must be in
+        international format.
+    pin_attempts : integer
+        Represents the number of times the PIN can be attempted before
+        expiration. Has a minimum of one attempt.
+    pin_time_to_live : integer
+        Represents how long the pin is valid before expiration. The time is
+        in minutes. The minimum time value is 0 and maximum is 60.
+    pin_length : integer
+        Length of the pin code. Has a minimum of 4 and maximum of 8.
     """
     payload = {
         'api_key' : api_key,
