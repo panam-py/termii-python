@@ -372,14 +372,15 @@ def add_many_contacts(api_key, contact_file, country_code, extension, phonebook_
 
     payload={'country_code': country_code}
 
-    files= [(country_code, (contact_file, 'rb'), extension)]
+    # files= [(country_code, (contact_file, 'rb'), extension)]
+    files= [(contact_file,(contact_file,'rb','text/csv'))]
 
     headers = {
     'Content-Type': 'application/json',
     }
 
     response = requests.post(url=f"{PHONEBOOKS_URL}/{phonebook_id}/contacts?api_key={api_key}", json=payload, files=files, headers=headers)
-    response = json.loads(response)
+    response = json.loads(response.content)
     return response
     
 def delete_one_contact(api_key, contact_id):
