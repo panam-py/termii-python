@@ -9,7 +9,7 @@ def send_token(api_key, message_type, phone_number,
         sender_id, channel, pin_attempts, pin_time_to_live,
         pin_length, pin_placeholder, message_text, pin_type,):
     """
-    Function that allows businesses generate a one-time-passwords(OTP).
+    This unction allows businesses generate a one-time-passwords(OTP).
     It happens across every channel on Termii.
     They are generated randomly and can be set to expire within a time-frame
 
@@ -65,7 +65,7 @@ def send_token(api_key, message_type, phone_number,
 def voice_token(api_key, phone_number, pin_attempts, 
                 pin_time_to_live, pin_length):
     """
-    Function that enables you to generate and trigger one-time-passwords
+    This function enables you to generate and trigger one-time-passwords
     via a voice channel to a phone number. OTPs are generated and sent to
     phone numbers and can only be verified using Verify Token function.
 
@@ -101,6 +101,21 @@ def voice_token(api_key, phone_number, pin_attempts,
 
 
 def voice_call(api_key, phone_number, code):
+    """
+    This function enables you to send messages from your application through
+    a voice channel to a client's phone number. Only one-time-passwords are
+    allowed for now and they cannot be verified via the Verify Token Function
+
+    Parameters:
+    api_key : string
+        API key for Termii account.
+    phone_number : integer
+        The destination number of the client receiving the voice token.
+        Number must be in international format.
+    code : numeric
+        The code the client receives. It has to be numeric and length must
+        be between 4 and 8 digits.
+    """
     payload = {
         'api_key' : api_key,
         'to' : phone_number,
