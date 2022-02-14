@@ -64,8 +64,7 @@ def send_new_token(api_key, message_type, phone_number,
     return response
 
 
-def send_voice_token(api_key, phone_number, pin_attempts, 
-                pin_time_to_live, pin_length):
+def send_voice_token(api_key, phone_number, pin_attempts, pin_time_to_live, pin_length):
     """
     This function enables you to generate and trigger one-time-passwords
     via a voice channel to a phone number. OTPs are generated and sent to
@@ -88,7 +87,7 @@ def send_voice_token(api_key, phone_number, pin_attempts,
     """
     payload = {
         'api_key' : api_key,
-        'from' : phone_number,
+        'phone_number' : phone_number,
         pin_attempts : 10,
         pin_time_to_live : 5,
         pin_length : 6,  
