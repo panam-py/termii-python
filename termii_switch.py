@@ -307,7 +307,7 @@ def get_contacts_from_phonebook(api_key, phonebook_id):
     response = json.loads(response.content)
     return response
 
-def add_contact(api_key, phone_number, options):
+def add_contact(api_key, phone_number, phonebook_id, options):
     """
     A function to add a single contact to a phonebook using the termii API
 
@@ -315,8 +315,30 @@ def add_contact(api_key, phone_number, options):
     api_key: str
         The API key for a certain termii account
     phone_number: str
-        Phone number of the contact in international format without the '+'
+        Phone number of the contact without international format.
+    phonebook_id: str
+        The id of the phonebook
     options: dict
         A dictionary containing certain options such as 'country_code', 'email_address', 'first_name', 'last_name' and 'company' which are all strings. An empty dictionary should be passed if there are no options.
     """
+
+    if type(options) != dict:
+        raise WrongType("dict", "options")
+    
+    payload = {
+        "api_key": api_key,
+        "phone_number": phone_number
+    }
+
+    for option in options.keys():
+        if option == "country_code" or option == "email_address" or option == "first_name" or option == "last_name" or option == "company":
+            payload[option] = options[option]
+        
+    headers = {
+    'Content-Type': 'application/json',
+    }
+
+    response = requests.post(url=f"{PHONEBOOKS_URL}/{phonebook_id}/contacts")
+    response = json.loads(response.content)
+    return response
     

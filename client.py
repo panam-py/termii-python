@@ -178,3 +178,21 @@ class Client:
         
         response = termii_switch.get_contacts_from_phonebook(self.api_key, phonebook_id)
         return response
+    
+    def add_new_contact(self, phone_number, phonebook_id, options):
+        """
+        A function to add a single contact to a phonebook using the termii API
+
+        Params:
+        api_key: str
+            The API key for a certain termii account
+        phone_number: str
+            Phone number of the contact without international format.
+        phonebook_id: str
+            The id of the phonebook
+        options: dict
+            A dictionary containing certain options such as 'country_code', 'email_address', 'first_name', 'last_name' and 'company' which are all strings. An empty dictionary should be passed if there are no options.
+        """
+
+        response = termii_switch.add_contact(self.api_key, phone_number, phonebook_id, options)
+        return response
