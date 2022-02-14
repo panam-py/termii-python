@@ -346,7 +346,7 @@ class Client:
     
     def send_token(self, message_type, phone_number, 
         sender_id, channel, pin_attempts, pin_time_to_live,
-        pin_length, pin_placeholder, message_text, pin_type):
+        pin_length, pin_placeholder, message_text):
 
         """
         A method that allows businesses trigger one-time-passwords(OTP)
@@ -356,7 +356,7 @@ class Client:
 
         response = termii_token.send_new_token(self.api_key, message_type, 
         phone_number, sender_id, channel, pin_attempts, pin_time_to_live,
-        pin_length, pin_placeholder, message_text, pin_type)
+        pin_length, pin_placeholder, message_text)
         return response
     
     def voice_token(self, phone_number, pin_attempts, pin_time_to_live, pin_length):
@@ -383,8 +383,8 @@ class Client:
         response = termii_token.send_voice_token(self.api_key, phone_number, pin_attempts, pin_time_to_live, pin_length)
         return response
 
-    def voice_call(self, phone_number, code):
-        response = termii_token.make_voice_call(self.api_key, phone_number, code)
+    def voice_call(self, phone_number, code, pin_attempts, pin_time_to_live, pin_length):
+        response = termii_token.make_voice_call(self.api_key, phone_number, code, pin_attempts, pin_time_to_live, pin_length)
         return response
     
     def verify_token(self, pin_id, pin):
@@ -404,8 +404,7 @@ class Client:
         response = termii_token.verify_sent_token(self.api_key, pin_id, pin)
         return response
     
-    def in_app_token(self, pin_type, phone_number, pin_attempts,
-        pin_time_to_live, pin_length):
+    def in_app_token(self, phone_number, pin_attempts, pin_time_to_live, pin_length):
         """
         A method that returns OTP code in JSON fromat which can be used in any
         web or mobile app. Tokens are numeric or alpha-numeric codes generated
@@ -430,6 +429,6 @@ class Client:
             Length of the pin code. Has a minimum of 4 and maximum of 8.
         """
         
-        response = termii_token.send_token_in_app(self.api_key, pin_type, phone_number,
+        response = termii_token.send_token_in_app(self.api_key, phone_number,
         pin_attempts, pin_time_to_live, pin_length)
         return response
