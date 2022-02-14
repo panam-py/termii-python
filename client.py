@@ -95,8 +95,6 @@ class Client:
         A function to set a device template for the one-time-passwords (pins) sent to their customers via whatsapp or sms.
 
         Params:
-        api_key: str
-            The API key for a certain termii account
         phone_number: str
             The destination phone number. Phone number must be in the international format without '+'
         device_id: str
@@ -123,8 +121,6 @@ class Client:
         Function to create a phonebook using the termii API
 
         Params:
-        api_key: str
-            The API key for a certain termii account
         description: str
             A description of the contacts stored in the phonebook
         phonebook_name: str
@@ -138,8 +134,6 @@ class Client:
         Function to create a phonebook using the termii API
 
         Params:
-        api_key: str
-            The API key for a certain termii account
         phonebook_id: str
             The id of the phonebook to be updated
         phonebook_name: str
@@ -156,8 +150,6 @@ class Client:
         Function to delete a phonebook using the termii API
 
         Params:
-        api_key: str
-            The API key for a certain termii account
         phonebook_id: str
             The id of the phonebook to be updated
         """
@@ -170,8 +162,6 @@ class Client:
         Function to get all the contacts associated to a termii phonebook
 
         Params:
-        api_key: str
-            The API key for a certain termii account
         phonebook_id: str
             The id of the phonebook
         """
@@ -184,8 +174,6 @@ class Client:
         A function to add a single contact to a phonebook using the termii API
 
         Params:
-        api_key: str
-            The API key for a certain termii account
         phone_number: str
             Phone number of the contact without international format.
         phonebook_id: str
@@ -202,8 +190,6 @@ class Client:
         A function to add contacts to a phonebook using the termii API
 
         Params:
-        api_key: str
-            The API key for a certain termii account
         contact_file: str
             File containing the list of contacts you want to add to your phonebook. Supported files include : 'txt', 'xlsx', and 'csv'.
         country_code: str
@@ -216,3 +202,16 @@ class Client:
 
         response = termii_switch.add_many_contacts(self.api_key, contact_file, country_code, extension, phonebook_id)
         return response
+
+    def delete_contact(self, contact_id):
+        """
+         A function to delete contacts from a phonebook using the termii API
+
+        Params:
+        api_key: str
+            The API key for a certain termii account
+        contact_id: str
+            The id of the contact to be deleted
+        """
+
+        response = termii_switch.delete_one_contact(self.api_key, contact_id)

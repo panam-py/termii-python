@@ -9,6 +9,7 @@ BULK_MESSAGE_URL = "https://api.ng.termii.com/api/sms/send/bulk"
 NUMBER_MESSAGE_SEND_URL = "https://api.ng.termii.com/api/sms/number/send"
 DEVICE_TEMPLATE_URL = "https://api.ng.termii.com/api/send/template"
 PHONEBOOKS_URL = "https://api.ng.termii.com/api/phonebooks"
+DELETE_CONTACT_URL = "https://api.ng.termii.com/api/phonebook/contact"
 
 def get_sender_ids(api_key):
     """
@@ -371,3 +372,17 @@ def add_many_contacts(api_key, contact_file, country_code, extension, phonebook_
     response = json.loads(response)
     return response
     
+def delete_one_contact(api_key, contact_id):
+    """
+    A function to delete contacts from a phonebook using the termii API
+
+    Params:
+    api_key: str
+        The API key for a certain termii account
+    contact_id: str
+        The id of the contact to be deleted
+    """
+
+    response = requests.delete(url=f"{DELETE_CONTACT_URL}/{contact_id}?api_key={api_key}")
+    response = json.loads(response)
+    return response
