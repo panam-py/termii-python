@@ -196,3 +196,23 @@ class Client:
 
         response = termii_switch.add_contact(self.api_key, phone_number, phonebook_id, options)
         return response
+    
+    def add_contacts(self, contact_file, country_code, extension, phonebook_id):
+        """
+        A function to add contacts to a phonebook using the termii API
+
+        Params:
+        api_key: str
+            The API key for a certain termii account
+        contact_file: str
+            File containing the list of contacts you want to add to your phonebook. Supported files include : 'txt', 'xlsx', and 'csv'.
+        country_code: str
+            Represents short numeric geographical codes developed to represent countries (Example: 234 ).
+        extension: str
+            The extension of the contact file: (Example: 'text/csv')
+        phonebook_id: str
+            The id of the phonebook
+        """
+
+        response = termii_switch.add_many_contacts(self.api_key, contact_file, country_code, extension, phonebook_id)
+        return response

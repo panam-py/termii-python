@@ -341,4 +341,33 @@ def add_contact(api_key, phone_number, phonebook_id, options):
     response = requests.post(url=f"{PHONEBOOKS_URL}/{phonebook_id}/contacts")
     response = json.loads(response.content)
     return response
+
+def add_many_contacts(api_key, contact_file, country_code, extension, phonebook_id):
+    """
+    A function to add contacts to a phonebook using the termii API
+
+    Params:
+    api_key: str
+        The API key for a certain termii account
+    contact_file: str
+        File containing the list of contacts you want to add to your phonebook. Supported files include : 'txt', 'xlsx', and 'csv'.
+    country_code: str
+        Represents short numeric geographical codes developed to represent countries (Example: 234 ).
+    extension: str
+        The extension of the contact file: (Example: 'text/csv')
+    phonebook_id: str
+        The id of the phonebook
+    """
+
+    payload={'country_code': country_code}
+
+    files= [(country_code, (contact_file, 'rb'), extension)]
+
+    headers = {
+    'Content-Type': 'application/json',
+    }
+
+    response = requests.post(url=f"{PHONEBOOKS_URL}/{phonebook_id}/contacts?api_key={api_key}", json=payload, files=files, headers=headers)
+    response = json.loads(response)
+    return response
     
