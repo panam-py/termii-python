@@ -310,7 +310,7 @@ def get_contacts_from_phonebook(api_key, phonebook_id):
     response = json.loads(response.content)
     return response
 
-def add_contact(api_key, phone_number, phonebook_id, options):
+def add_contact(api_key, phone_number, phonebook_id, country_code, options):
     """
     A function to add a single contact to a phonebook using the termii API
 
@@ -321,8 +321,10 @@ def add_contact(api_key, phone_number, phonebook_id, options):
         Phone number of the contact without international format.
     phonebook_id: str
         The id of the phonebook
+    country_code: str
+        The country code of the number to be added
     options: dict
-        A dictionary containing certain options such as 'country_code', 'email_address', 'first_name', 'last_name' and 'company' which are all strings. An empty dictionary should be passed if there are no options.
+        A dictionary containing certain options such as 'email_address', 'first_name', 'last_name' and 'company' which are all strings. An empty dictionary should be passed if there are no options.
     """
 
     if type(options) != dict:
@@ -330,18 +332,24 @@ def add_contact(api_key, phone_number, phonebook_id, options):
     
     payload = {
         "api_key": api_key,
-        "phone_number": phone_number
+        "phone_number": phone_number,
+        "country_code": country_code
     }
+
+    option_list = []
 
     for option in options.keys():
         if option == "country_code" or option == "email_address" or option == "first_name" or option == "last_name" or option == "company":
-            payload[option] = options[option]
+           option_list.append(option)
+
+    for option in option_list:
+        payload[option] = options[option]
         
     headers = {
     'Content-Type': 'application/json',
     }
 
-    response = requests.post(url=f"{PHONEBOOKS_URL}/{phonebook_id}/contacts")
+    response = requests.post(url=f"{PHONEBOOKS_URL}/{phonebook_id}/contacts", json=payload, headers=headers)
     response = json.loads(response.content)
     return response
 
