@@ -406,7 +406,30 @@ class Client:
     
     def in_app_token(self, pin_type, phone_number, pin_attempts,
         pin_time_to_live, pin_length):
+        """
+        A method that returns OTP code in JSON fromat which can be used in any
+        web or mobile app. Tokens are numeric or alpha-numeric codes generated
+        to authenticate login requests and verify customer transactions.
+
+        Parameters:
+        api_key : string
+            API key for Termii account
+        pin_type : NUMERIC / ALPHANUMERIC
+            Type of pin code that will be generated and sent as part of the OTP
+            message. Can be set to numeric or alphanumeric.
+        phone_number : string
+            Represents the destination phone number. Phone number must be in
+            international format.
+        pin_attempts : integer
+            Represents the number of times the PIN can be attempted before
+            expiration. Has a minimum of one attempt.
+        pin_time_to_live : integer
+            Represents how long the pin is valid before expiration. The time is
+            in minutes. The minimum time value is 0 and maximum is 60.
+        pin_length : integer
+            Length of the pin code. Has a minimum of 4 and maximum of 8.
+        """
         
         response = termii_token.send_token_in_app(self.api_key, pin_type, phone_number,
-            pin_attempts, pin_time_to_live, pin_length)
+        pin_attempts, pin_time_to_live, pin_length)
         return response

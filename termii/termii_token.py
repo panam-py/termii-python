@@ -13,7 +13,7 @@ def send_new_token(api_key, message_type, phone_number,
     """
     This function allows businesses generate a one-time-passwords(OTP).
     It happens across every channel on Termii.
-    They are generated randomly and can be set to expire within a time-frame
+    They are generated randomly and can be set to expire within a time-frame.
 
     Parameters:
     api_key : string
@@ -98,6 +98,7 @@ def send_voice_token(api_key, phone_number, pin_attempts, pin_time_to_live, pin_
     }
     
     response = requests.post(SEND_TOKEN_VOICE_URL, headers=headers, json=payload)
+    response = json.loads(response.content)
     return response
 
 
@@ -119,7 +120,7 @@ def make_voice_call(api_key, phone_number, code):
     """
     payload = {
         'api_key' : api_key,
-        'to' : phone_number,
+        'phone_number' : phone_number,
         'code' : code,
     }
     
@@ -128,6 +129,7 @@ def make_voice_call(api_key, phone_number, code):
     }
     
     response = requests.post(SEND_TOKEN_VOICECALL_URL, headers=headers, json=payload)
+    response = json.loads(response.content)
     return response
 
 
@@ -156,6 +158,7 @@ def verify_sent_token(api_key, pin_id, pin):
     }
 
     response = requests.post(SEND_TOKEN_VERIFYTOKEN_URL, headers=headers, json=payload)
+    response = json.loads(response.content)
     return response
 
 
