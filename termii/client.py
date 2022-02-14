@@ -1,4 +1,6 @@
+from urllib import response
 import termii_switch
+import termii_token
 import termii_insight
 
 class Client:
@@ -36,6 +38,7 @@ class Client:
     def __init__(self, api_key):
         self.api_key = api_key
 
+    """ START OF METHODS FOR SWITCH"""
     def fetch_sender_ids(self):
         """
         A method to request new termii sender ID.
@@ -290,7 +293,9 @@ class Client:
 
         response = termii_switch.get_campaign_history(self.api_key, campaign_id)
         return response
+    """ END OF METHODS FOR SWITCH """
     
+    """ START OF METHODS FOR INSIGHT """
     def get_balance(self):
         """
         A method to check a client's termii balance
@@ -333,4 +338,75 @@ class Client:
         """
 
         response = termii_insight.get_full_history(self.api_key)
+        return response
+    """ END OF METHODS FOR INSIGHT """
+
+
+    """ START OF METHODS FOR TOKEN """
+    
+    def send_token(self, message_type, phone_number, 
+        sender_id, channel, pin_attempts, pin_time_to_live,
+        pin_length, pin_placeholder, message_text, pin_type):
+
+        """
+        A method that allows businesses trigger one-time-passwords(OTP)
+        across any available messaging channel on Termii. The OTP are created
+        generated randomly and there's an optionto set an expiry time.
+        """
+
+        response = termii_token.send_new_token(self.api_key, message_type, 
+        phone_number, sender_id, channel, pin_attempts, pin_time_to_live,
+        pin_length, pin_placeholder, message_text, pin_type)
+        return response
+    
+    def voice_token(self, phone_number, pin_attempts, pin_time_to_live, pin_length):
+        """
+        A method that enables you to generate and trigger one-time-passwords
+        via a voice channel to a phone number. OTPs are generated and sent to
+        phone numbers and can only be verified using Verify Token function.
+
+        Parameters:
+        api_key : string
+            API key for Termii account.
+        phone_number : integer
+            The destination number of the client receiving the voice token.
+            Number must be in international format.
+        pin_attempts : NUMERIC / ALPHANUMERIC
+            PIN code that is generated and sent with the OTP message.
+            Has a minimum of one attempt.
+        pin_time_to_live : integer
+            Represents time of pin validation before expiry.
+            Time is in minutes and has a minimum of 0 and maximum of 60.
+        pin_length : integer
+            Length of PIN code. Has a minimum of 4 and maximum of 8.
+    """
+        response = termii_token.send_voice_token(self.api_key, phone_number, pin_attempts, pin_time_to_live, pin_length)
+        return response
+
+    def voice_call(self, phone_number, code):
+        response = termii_token.make_voice_call(self.api_key, phone_number, code)
+        return response
+    
+    def verify_token(self, pin_id, pin):
+        """
+         A method that checks tokens sent to customers and returns a response
+        confirming the status of the token. A token can either be confirmed
+        as verified or expired based on the timer set for the token.
+
+        Parameters:
+        api_key : string
+            API key for Termii account
+        pin_id : string
+            ID of the pin sent (Example: "c8dcd048-5e7f-4347-8c89-4470c3af0b")
+        pin : string
+            The pin code (Example: "195558")
+        """
+        response = termii_token.verify_sent_token(self.api_key, pin_id, pin)
+        return response
+    
+    def in_app_token(self, pin_type, phone_number, pin_attempts,
+        pin_time_to_live, pin_length):
+        
+        response = termii_token.send_token_in_app(self.api_key, pin_type, phone_number,
+            pin_attempts, pin_time_to_live, pin_length)
         return response
