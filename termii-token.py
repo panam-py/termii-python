@@ -6,12 +6,13 @@ SEND_TOKEN_URL = 'https://api.ng.termii.com/api/sms/otp/send'
 SEND_TOKEN_VOICE_URL = "https://api.ng.termii.com/api/sms/otp/send/voice"
 SEND_TOKEN_VOICECALL_URL = "https://api.ng.termii.com/api/sms/otp/send/voice"
 SEND_TOKEN_VERIFYTOKEN_URL = "https://api.ng.termii.com/api/sms/otp/verify"
+SEND_TOKEN_IN_APP = "https://api.ng.termii.com/api/sms/otp/generate"
 
 def send_new_token(api_key, message_type, phone_number, 
         sender_id, channel, pin_attempts, pin_time_to_live,
         pin_length, pin_placeholder, message_text, pin_type,):
     """
-    This unction allows businesses generate a one-time-passwords(OTP).
+    This function allows businesses generate a one-time-passwords(OTP).
     It happens across every channel on Termii.
     They are generated randomly and can be set to expire within a time-frame
 
@@ -95,7 +96,7 @@ def send_voice_token(api_key, phone_number, pin_attempts,
     }
     
     headers = {
-        'Content-type' : 'application/json',
+        'Content-Type' : 'application/json',
     }
     
     response = requests.post(SEND_TOKEN_VOICE_URL, headers=headers, json=payload)
@@ -125,7 +126,7 @@ def make_voice_call(api_key, phone_number, code):
     }
     
     headers = {
-        'Content-type' : 'application/json',
+        'Content-Type' : 'application/json',
     }
     
     response = requests.post(SEND_TOKEN_VOICECALL_URL, headers=headers, json=payload)
@@ -157,4 +158,35 @@ def verify_sent_token(api_key, pin_id, pin):
     }
 
     response = requests.post(SEND_TOKEN_VERIFYTOKEN_URL, headers=headers, json=payload)
+    return response
+
+
+def send_token_in_app(api_key, pin_type, phone_number, pin_attempts,
+        pin_time_to_live, pin_length):
+    """
+    This function returns OTP code in JSON fromat which can be used in any
+    web or mobile app. Tokens are numeric or alpha-numeric codes generated
+    to authenticate login requests and verify customer transactions.
+
+    Parameters:
+    api_key : string
+        API key for Termii account
+    pin_type : NUMERIC / ALPHANUMERIC
+        
+    """
+    payload = {
+        'api_key' : api_key,
+        'pin_type' : pin_type,
+        'phone_number' : phone_number,
+        pin_attempts : 3,
+        pin_time_to_live : 0,
+        pin_length : 4,
+    }
+
+    headers = {
+        'Content-Type' : 'application/json',
+    }
+
+    response = requests.post(SEND_TOKEN_IN_APP, headers=headers, json=payload)
+    response = json.loads(response.content)
     return response
