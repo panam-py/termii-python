@@ -8,7 +8,7 @@ setup(
   author = 'Alaribe Eric & Hebron Praise',                   
   author_email = 'panampraisehebron@gmail.com',      
   url = 'https://github.com/panam-py/termii-python',   
-  download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',    
+  download_url = 'https://github.com/panam-py/termii-python/archive/refs/tags/v_0.1.0.tar.gz',    
   keywords = ['Termii SDK', 'Python', 'API'],   
   install_requires=[            
     ],
