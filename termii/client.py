@@ -301,7 +301,7 @@ class Client:
         A method to check a client's termii balance
         """
 
-        response = termii_insight.check_balance()
+        response = termii_insight.check_balance(self.api_key)
         return response
     
     def search_number(self, phone_number):
@@ -313,7 +313,7 @@ class Client:
             Represents the phone number to be verified. Phone number must be in the international format without the '+'
         """
 
-        response = termii_insight.check_number(phone_number)
+        response = termii_insight.check_number(self.api_key, phone_number)
         return response
 
     def search_number_status(self, phone_number, country_code):
