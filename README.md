@@ -7,7 +7,7 @@
 
 ## TERMII-PYTHON
 
-# Termii SDK for Python to aid in interfacing with the termii API
+Termii SDK for Python to aid in interfacing with the termii API
 
 ## Features
 
