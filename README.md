@@ -1,9 +1,11 @@
 <p align="center">
     <img title="Termii" src="https://termii.com/assets/images/logo.png"/>
 </p>
-## TERMII-PYTHON
+
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://github.com/panam-py/termii-python/releases/tag/v_0.1.0)
+
+## TERMII-PYTHON
 
 # Termii SDK for Python to aid in interfacing with the termii API
 
