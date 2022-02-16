@@ -45,5 +45,5 @@ This SDK was created with ❤ by [Hebron Praise](https://github.com/panam-py) an
 
 This project is under license from MIT. For more details, see the [LICENSE](https://github.com/panam-py/termii-python/blob/main/LICENSE) file.
 
-**Free Software, Hell Yeah!**
+## **Free Software, Hell Yeah!**
 
