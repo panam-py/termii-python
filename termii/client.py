@@ -1,4 +1,3 @@
-from urllib import response
 import termii_switch
 import termii_token
 import termii_insight
