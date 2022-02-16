@@ -1,7 +1,14 @@
 from distutils.core import setup
+from pathlib import Path
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text(encoding='utf8')
+
 setup(
   name = 'termii',         
   packages = ['termii'],  
+  long_description=long_description,
+  long_description_content_type='text/markdown',
   version = '0.1.1',      
   license='MIT',       
   description = 'Termii SDK for Python to allow easy interfacing with the termii API.',   
