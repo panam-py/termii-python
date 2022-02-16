@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'termii',         
   packages = ['termii'],  
-  version = '0.1.0',      
+  version = '0.1.1',      
   license='MIT',       
   description = 'Termii SDK for Python to allow easy interfacing with the termii API.',   
   author = 'Alaribe Eric & Hebron Praise',                   
