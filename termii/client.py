@@ -34,6 +34,11 @@ class Client:
     search_number: A method to verify phone numbers and automatically detect their status
     search_number_status: A method to detect if a number is fake or has ported to a new network.
     fetch_history: A method that returns reports for messages sent across the sms, voice & whatsapp channels.
+    send_token:  A method that allows businesses trigger one-time-passwords(OTP) across any available messaging channel on Termii.
+    voice_token: A method that enables you to generate and trigger one-time-passwords via a voice channel to a phone number.
+    voice_call: A method that enables you to send messages from your application through a voice channel to a client's phone number.
+    verify_token:  A method that checks tokens sent to customers and returns a response confirming the status of the token.
+    in_app_token: A method that returns OTP code in JSON fromat which can be used in any web or mobile app.
     """
     def __init__(self, api_key):
         self.api_key = api_key
@@ -384,6 +389,29 @@ class Client:
         return response
 
     def voice_call(self, phone_number, code, pin_attempts, pin_time_to_live, pin_length):
+        """
+        A method that enables you to send messages from your application through
+        a voice channel to a client's phone number. Only one-time-passwords are
+        allowed for now and they cannot be verified via the Verify Token Function
+
+        Parameters:
+        api_key : string
+            API key for Termii account.
+        phone_number : integer
+            The destination number of the client receiving the voice token.
+            Number must be in international format.
+        code : numeric
+            The code the client receives. It has to be numeric and length must
+            be between 4 and 8 digits.
+        pin_attempts : integer
+            Represents the number of times the PIN can be attempted before
+            expiration. Has a minimum of one attempt.
+        pin_time_to_live : integer
+            Represents how long the pin is valid before expiration. The time is
+            in minutes. The minimum time value is 0 and maximum is 60.
+        pin_length : integer
+            Length of the pin code. Has a minimum of 4 and maximum of 8.
+        """
         response = termii_token.make_voice_call(self.api_key, phone_number, code, pin_attempts, pin_time_to_live, pin_length)
         return response
     
